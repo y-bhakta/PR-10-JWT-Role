@@ -127,7 +127,7 @@ const clientctl={
     // View Employee Page
     async viewEmployeePage(req,res){
         try {
-            let ress= await fetch('http://localhost:8547/api/user/',{
+            let ress= await fetch(`${process.env.API_URL}api/user/`,{
                 method:"GET"
             })
             let data = await ress.json();
