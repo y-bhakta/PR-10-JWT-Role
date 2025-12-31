@@ -1,7 +1,9 @@
 import axios from "axios";
+import env from "dotenv";
+env.config();
 
 const axiosInstance=axios.create({
-    baseURL:'http://localhost:8547/api'
+    baseURL:`${process.env.API_URL}api`
 });
 
 export default axiosInstance;

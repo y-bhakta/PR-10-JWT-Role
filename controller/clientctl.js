@@ -1,7 +1,8 @@
 import axiosInstance from "../configs/axios.js";
 import bcrypt from "bcrypt";
 import Usermodel from "../models/usermodel.js";
-import userctl from "./userctl.js";
+import env from "dotenv";
+env.config();
 
 const clientctl={
     // dasboard
@@ -14,7 +15,7 @@ const clientctl={
     },
     async login(req,res){
         try {
-            let response = await fetch('http://localhost:8547/api/user/login',{
+            let response = await fetch(`${process.env.API_URL}api/user/login`,{
                 method:'POST',
                 headers:{
                     'Content-Type':'application/json'
@@ -43,7 +44,7 @@ const clientctl={
             const token = req.cookies && req.cookies.token;
             const headers = { "Content-Type": "application/json" };
             if (token) headers.Cookie = `token=${token}`;
-            let Response = await fetch('http://localhost:8547/api/user/', {
+            let Response = await fetch(`${process.env.API_URL}api/user/`, {
                 method: "POST",
                 headers,
                 body: JSON.stringify(req.body)
@@ -63,7 +64,7 @@ const clientctl={
     // View Managers Page
     async viewManagersPage(req,res){
         try {
-            let ress= await fetch('http://localhost:8547/api/user/',{
+            let ress= await fetch(`${process.env.API_URL}api/user/`,{
                 method:"GET"
             })
             let data = await ress.json();
