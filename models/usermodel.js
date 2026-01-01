@@ -20,6 +20,27 @@ const userSchema=new mongoose.Schema({
         enum:['Admin','Manager','Employee'],
         default:'Employee'
     },
+    image:{
+        type:String,
+        default:''
+    },
+    Bio:{
+        type:String,
+        default:''
+    },
+    DOB:{
+        type:String,
+        default:''
+    },
+    Mobile:{
+        type:String,
+        default:''
+    },
+    gender:{
+        enum:['Male','Female'],
+        type: String,
+        default:'Male'
+    }
 });
 
 const Usermodel = mongoose.model("User",userSchema);

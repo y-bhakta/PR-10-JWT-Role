@@ -1,0 +1,106 @@
+<%- include('../partials/header.ejs') %>
+  <div class="page-wrapper">
+
+    <div class="page-breadcrumb">
+      <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+          <h4 class="page-title">Your Profile (<%= user.name %>)</h4>
+          <div class="ms-auto text-end">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">
+                  ProfilePage
+                </li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container my-5">
+      <div class="bg-white" style="border-radius: 5px;">
+        <div class="row p-2">
+          <div class="col-12 d-flex justify-content-between">
+            <div class="d-flex align-items-center h-100">
+              <div class="user-icon"><i class="fa-regular fa-user"></i></div>
+              <h4 class="mb-0 ms-1">Personal Details</h4>
+            </div>
+            <div>
+              <a href="/edit-profile" class="btn"
+                style="border-radius:5px;color: black;background-color: lightgray;">
+                <i class="fa-regular fa-pen-to-square"></i> Edit Profile
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="row p-2">
+          <div class="col-12">
+            <h5>Personal Information</h5>
+          </div>
+          <div class="col-12">
+            <div class="px-1 d-flex flex-wrap" style="border: 1px solid grey; border-radius: 5px;">
+              <div class="col-12 col-md-6 col-lg-2 p-2 d-flex justify-content-center">
+                <div class="profile-img">
+                  <% if(!user.image){ %>
+                    <img class="w-100 h-100" style="object-fit: cover;border-radius:50%" src="/uploads/219988.png" alt="">
+                  <% }else{ %>
+                    <img class="w-100 h-100" style="object-fit: cover;border-radius:50%" src="/<%= user.image %>" alt="">
+                  <% } %>
+                </div>
+              </div>
+              <div class="col-12 col-md-6 col-lg-10 p-2 d-flex">
+                <div class="col-4">
+                  <div>
+                    <h6 class="text-muted">UserName</h6>
+                    <h5 class="text-dark"><%= user.name %></h5>
+                  </div>
+                  <div>
+                    <h6 class="text-muted">Email</h6>
+                    <h5 class="text-dark"><%= user.email %></h5>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div>
+                    <h6 class="text-muted">Mobile</h6>
+                    <% if(!user.Mobile){ %>
+                      <h5 class="text-dark">NA</h5>
+                    <% }else{ %>
+                      <h5 class="text-dark"><%= user.Mobile %></h5>
+                    <% } %>
+                  </div>
+                  <div>
+                    <h6 class="text-muted">DateOfBirht</h6>
+                    <% if(!user.DOB){ %>
+                      <h5 class="text-dark">NA</h5>
+                    <% }else{ %>
+                      <h5 class="text-dark"><%= user.DOB %></h5>
+                    <% } %>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div>
+                    <h6 class="text-muted">Gender</h6>
+                    <% if(!user.gender){ %>
+                      <h5 class="text-dark">NA</h5>
+                    <% }else{ %>
+                      <h5 class="text-dark"><%= user.gender %></h5>
+                    <% } %>
+                  </div>
+                  <div>
+                    <h6 class="text-muted">Your Bio</h6>
+                    <% if(!user.Bio){ %>
+                      <h5 class="text-dark">NA</h5>
+                    <% }else{ %>
+                      <h5 class="text-dark"><%= user.Bio %></h5>
+                    <% } %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>  
+    <%- include('../partials/footer.ejs') %>

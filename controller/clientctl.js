@@ -2,12 +2,28 @@ import axiosInstance from "../configs/axios.js";
 import bcrypt from "bcrypt";
 import Usermodel from "../models/usermodel.js";
 import env from "dotenv";
+import jwt from "jsonwebtoken";
 env.config();
 
 const clientctl={
     // dasboard
-    dashboard(req,res){
-        return res.render('./index.ejs');
+    async dashboard(req,res){
+        try {
+            let totalUsers=await Usermodel.countDocuments();
+            let totalManagers=await Usermodel.countDocuments({role:"Manager"});
+            let totalEmployees=await Usermodel.countDocuments({role:"Employee"});
+            return res.render('./index.ejs',{
+                totalUsers,
+                totalManagers,
+                totalEmployees
+            });
+        } catch (error) {
+            return res.render('./index.ejs',{
+                totalUsers:0,
+                totalManagers:0,
+                totalEmployees:0
+            });
+        }
     },
     // login page
     loginpage(req,res){
@@ -111,19 +127,6 @@ const clientctl={
             return res.redirect(req.get('Referer') || '/');
         }
     },
-    // Makeing A Manager As Admin
-    async makeAdmin(req,res){
-        try {
-            const {id}=req.params;
-            let data=await Usermodel.findById(id);
-            data.role="Admin";
-            await data.save();
-            return res.redirect('/view-managers');
-        } catch (error) {
-            console.log(error);
-            return res.redirect('/view-managers');
-        }
-    },
     // View Employee Page
     async viewEmployeePage(req,res){
         try {
@@ -153,6 +156,59 @@ const clientctl={
         } catch (error) {
             console.log(error);
             return res.redirect('/view-employee');
+        }
+    },
+    // Change Password
+    changePasswordPage(req,res){
+        return res.render('./pages/changePassword.ejs');
+    },
+    async changePassword(req,res){
+        try {
+            const { currentPassword, newPassword, confirmPassword } = req.body;
+            const { token } = req.cookies;
+            let decoded=jwt.verify(token,"myTokenKey");
+            let user=await Usermodel.findById(decoded.userId);
+            let isValid = await bcrypt.compare(currentPassword, user.password);
+            if (isValid) {
+                if (newPassword == confirmPassword) {
+                    user.password = await bcrypt.hash(newPassword, 10);
+                    await user.save();
+                    return res.redirect('/logout');
+                } else {
+                    console.log('error', 'new password and confirm password not match');
+                    return res.redirect('/changepassword');
+                }
+            } else {
+                console.log('error', 'Current Password Not Match');
+                return res.redirect('/changepassword');
+            }
+        } catch (error) {
+            console.log(error);
+            return res.redirect('/changepassword');
+        }
+    },
+    profile(req, res) {
+        return res.render('./pages/profilepage.ejs');
+    },
+    editprofilepage(req, res) {
+        return res.render('./pages/editprofilepage.ejs');
+    },
+    async editprofile(req, res) {
+        try {
+            let oneuser = res.locals.user;
+            const updateData = { ...req.body };
+            if (req.file) {
+                updateData.image = `uploads/${req.file.filename}`;
+                console.log(`[editprofile] Image uploaded: ${updateData.image}`);
+            } else {
+                console.log('[editprofile] No file received from multer');
+            }
+            let dbuser = await Usermodel.findByIdAndUpdate(oneuser.id, updateData, { new: true });
+            console.log(`[editprofile] User updated. Image field in DB: ${dbuser.image}`);
+            return res.redirect('/profile');
+        } catch (error) {
+            console.error('[editprofile] Error:', error);
+            return res.redirect('/edit-profile');
         }
     }
 };

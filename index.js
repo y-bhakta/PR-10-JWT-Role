@@ -8,10 +8,11 @@ import clientrout from './router/clientrout.js';
 const port=dotenv.PORT || 3259;
 const app=express();
 
+app.set('view engine','ejs');
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 app.use(cookieParser());
-app.set('view engine','ejs');
+app.use('/uploads',express.static('uploads'));
 app.use(express.static('public'));
 
 app.use('/api',router);
