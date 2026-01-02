@@ -2,6 +2,7 @@ import { Router } from "express";
 import clientctl from "../controller/clientctl.js";
 import checkClientAuth from "../middlewares/clientAuth.js";
 import upload from "../middlewares/upload.js";
+import taskCtl from "../controller/taskctl.js";
 
 const clientrout=Router();
 
@@ -26,5 +27,9 @@ clientrout.post('/changepassword',clientctl.changePassword);
 clientrout.get('/profile',clientctl.profile);
 clientrout.get('/edit-profile',clientctl.editprofilepage);
 clientrout.post('/edit-profile', upload, clientctl.editprofile);
+// Task routes
+clientrout.get('/addTask', taskCtl.addTaskPage);
+clientrout.post('/addTask', taskCtl.addTask);
+clientrout.get('/viewTasks', taskCtl.viewTasksPage);
 
 export default clientrout;

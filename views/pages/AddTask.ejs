@@ -1,0 +1,109 @@
+<%- include('../partials/header.ejs') %>
+  <!-- ============================================================== -->
+  <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+  <!-- ============================================================== -->
+  <!-- ============================================================== -->
+  <!-- Page wrapper  -->
+  <!-- ============================================================== -->
+  <div class="page-wrapper">
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="page-breadcrumb">
+      <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+          <h4 class="page-title">Form Basic</h4>
+          <div class="ms-auto text-end">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">
+                  Add Data
+                </li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+      <!-- ============================================================== -->
+      <!-- Start Page Content -->
+      <!-- ============================================================== -->
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card">
+            <form class="form-horizontal" method="post">
+              <div class="card-body">
+                <h4 class="card-title">Personal Info</h4>
+                <div class="form-group row">
+                  <label for="fname" class="col-sm-3 text-end control-label col-form-label">Name</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="fname" name="title" placeholder="Name Here" />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="lname" class="col-sm-3 text-end control-label col-form-label">Description</label>
+                  <div class="col-sm-9">
+                    <textarea name="description" id=""></textarea>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="lname" class="col-sm-3 text-end control-label col-form-label">Status:</label>
+                  <div class="col-sm-9">
+                    <select class="form-select" aria-label="Default select example" name="status">
+                      <option selected disabled>-- Select Status --</option>
+                      <option value="Pending">Pending</option>
+                      <option value="In Progress">In Progress</option>
+                      <option value="Completed">Completed</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="assignTo" class="col-sm-3 text-end control-label col-form-label">Assign To:</label>
+                  <div class="col-sm-9">
+                    <select class="form-select" id="assignTo" name="assignTo" required>
+                      <option selected disabled>-- Select User --</option>
+                      <% if (typeof users !== 'undefined' && users.length) { %>
+                        <% users.forEach(u => { %>
+                          <option value="<%= u._id %>"><%= u.name %> (<%= u.role %>)</option>
+                        <% }) %>
+                      <% } %>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="border-top">
+                <div class="card-body">
+                  <button type="submit" class="btn btn-primary">
+                    Submit
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End PAge Content -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Right sidebar -->
+        <!-- ============================================================== -->
+        <!-- .right-sidebar -->
+        <!-- ============================================================== -->
+        <!-- End Right sidebar -->
+        <!-- ============================================================== -->
+      </div>
+      <!-- ============================================================== -->
+      <!-- End Container fluid  -->
+      <!-- ============================================================== -->
+      <!-- ============================================================== -->
+      <!-- footer -->
+      <!-- ============================================================== -->
+      <%- include('../partials/footer.ejs') %>

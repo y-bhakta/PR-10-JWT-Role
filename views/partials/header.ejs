@@ -299,6 +299,10 @@
                 <a href="/addPerson" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu">
                     Add Person </span></a>
               </li>
+              <li class="sidebar-item">
+                <a href="/addTask" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu">
+                    Add task </span></a>
+              </li>
               <% } %>
                 <% if(user.role==="Admin" ){ %>
                   <li class="sidebar-item">
@@ -325,10 +329,21 @@
                         </ul>
                       </li>
                       <% } %>
-                        <li class="sidebar-item">
-                          <a href="form-wizard.html" class="sidebar-link"><i class="mdi mdi-receipt"></i><span
-                              class="hide-menu"> Tasks </span></a>
-                        </li>
+                      <li class="sidebar-item">
+                                        <a class="sidebar-link has-arrow waves-effect waves-dark"
+                                            href="javascript:void(0)" aria-expanded="false"><i
+                                                class="mdi mdi-receipt"></i><span class="hide-menu">Tasks
+                                            </span></a>
+                                        <ul aria-expanded="false" class="collapse first-level">
+
+                                            <li class="sidebar-item">
+                                                <a href="/viewTasks" class="sidebar-link"><i
+                                                        class="mdi mdi-note-plus"></i><span class="hide-menu"> View
+                                                        Tasks
+                                                    </span></a>
+                                            </li>
+                                        </ul>
+                                    </li>  
           </ul>
         </nav>
         <!-- End Sidebar navigation -->
